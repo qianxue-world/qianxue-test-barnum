@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: qianxue-test-barnum
-        image: omaticaya/qianxue-test-barnum:1.0.13
+        image: omaticaya/qianxue-test-barnum:1.0.14
         imagePullPolicy: Always
         ports:
         - containerPort: 80
