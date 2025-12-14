@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: mind-eden-hpa
-  namespace: mind-eden-ns
+  name: qianxue-test-fatebook-hpa
+  namespace: qianxue-test-fatebook-ns
   labels:
-    app: mind-eden
+    app: qianxue-test-fatebook
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: mind-eden
+    name: qianxue-test-fatebook
   minReplicas: 2
   maxReplicas: 10
   metrics:

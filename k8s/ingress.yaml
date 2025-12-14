@@ -1,10 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mind-eden-ingress
-  namespace: mind-eden-ns
+  name: qianxue-test-fatebook-ingress
+  namespace: qianxue-test-fatebook-ns
   labels:
-    app: mind-eden
+    app: qianxue-test-fatebook
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -15,16 +15,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - mind-eden.qianxue.online
-    secretName: mind-eden-tls-secret
+    - test-fatebook.qianxue.online
+    secretName: qianxue-test-fatebook-tls-secret
   rules:
-  - host: mind-eden.qianxue.online
+  - host: test-fatebook.qianxue.online
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: mind-eden-service
+            name: qianxue-test-fatebook-service
             port:
               number: 80

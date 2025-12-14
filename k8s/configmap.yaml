@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mind-eden-config
-  namespace: mind-eden-ns
+  name: qianxue-test-fatebook-config
+  namespace: qianxue-test-fatebook-ns
   labels:
-    app: mind-eden
+    app: qianxue-test-fatebook
 data:
   # API Base URL for backend services
   API_BASE_URL: "https://api.qianxue.online"

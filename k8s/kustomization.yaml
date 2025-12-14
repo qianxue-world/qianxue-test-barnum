@@ -1,11 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: mind-eden-ns
+namespace: qianxue-test-fatebook-ns
 
 metadata:
-  name: mind-eden
-  namespace: mind-eden-ns
+  name: qianxue-test-fatebook
+  namespace: qianxue-test-fatebook-ns
 
 resources:
 - namespace.yaml
@@ -17,11 +17,11 @@ resources:
 - hpa.yaml
 
 images:
-- name: omaticaya/mind-eden
-  newTag: 1.0.11
+- name: omaticaya/qianxue-test-fatebook
+  newTag: 1.0.1
 
 commonLabels:
-  app: mind-eden
+  app: qianxue-test-fatebook
   managed-by: argocd
 
 
