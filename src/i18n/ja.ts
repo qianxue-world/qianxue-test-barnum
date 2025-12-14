@@ -72,7 +72,7 @@ export const ja: Translations = {
     },
     helpSection: {
       title: '📋 ファイル説明',
-      lhrhDKT: 'lh/rh.aparc.DKTatlas.stats - DKT 分区皮質統計',
+      lhrhDKT: 'lh/rh.aparc.mind-eden.stats - DKT 分区皮質統計',
       lhrhAparc: 'lh/rh.aparc.stats - Desikan 分区皮質統計',
       aseg: 'aseg.stats - 皮質下構造と総体積統計',
       locationHint: '💡 これらのファイルは FreeSurfer 出力ディレクトリの stats/ フォルダにあります',

@@ -72,7 +72,7 @@ export const en: Translations = {
     },
     helpSection: {
       title: '📋 File Description',
-      lhrhDKT: 'lh/rh.aparc.DKTatlas.stats - DKT parcellation cortical statistics',
+      lhrhDKT: 'lh/rh.aparc.mind-eden.stats - DKT parcellation cortical statistics',
       lhrhAparc: 'lh/rh.aparc.stats - Desikan parcellation cortical statistics',
       aseg: 'aseg.stats - Subcortical structures and total volume statistics',
       locationHint: '💡 These files are located in the stats/ folder of FreeSurfer output directory',

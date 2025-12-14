@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: dktatlas-config
-  namespace: dktatlas-ns
+  name: mind-eden-config
+  namespace: mind-eden-ns
   labels:
-    app: dktatlas
+    app: mind-eden
 data:
   # API Base URL for backend services
   API_BASE_URL: "https://api.qianxue.online"

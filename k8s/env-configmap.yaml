@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: dktatlas-env-config
-  namespace: dktatlas-ns
+  name: mind-eden-env-config
+  namespace: mind-eden-ns
   labels:
-    app: dktatlas
+    app: mind-eden

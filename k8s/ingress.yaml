@@ -1,10 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: dktatlas-ingress
-  namespace: dktatlas-ns
+  name: mind-eden-ingress
+  namespace: mind-eden-ns
   labels:
-    app: dktatlas
+    app: mind-eden
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -15,16 +15,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - dktatlas.qianxue.online
-    secretName: dktatlas-tls-secret
+    - mind-eden.qianxue.online
+    secretName: mind-eden-tls-secret
   rules:
-  - host: dktatlas.qianxue.online
+  - host: mind-eden.qianxue.online
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: dktatlas-service
+            name: mind-eden-service
             port:
               number: 80

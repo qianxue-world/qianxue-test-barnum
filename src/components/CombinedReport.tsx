@@ -7,8 +7,8 @@ import './CombinedReport.css'
 
 // 文件类型配置
 const fileTypesConfig = [
-  { key: 'lhDKT', pattern: /lh\.aparc\.DKTatlas\.stats$/i },
-  { key: 'rhDKT', pattern: /rh\.aparc\.DKTatlas\.stats$/i },
+  { key: 'lhDKT', pattern: /lh\.aparc\.mind-eden\.stats$/i },
+  { key: 'rhDKT', pattern: /rh\.aparc\.mind-eden\.stats$/i },
   { key: 'lhAparc', pattern: /lh\.aparc\.stats$/i },
   { key: 'rhAparc', pattern: /rh\.aparc\.stats$/i },
   { key: 'aseg', pattern: /aseg\.stats$/i },

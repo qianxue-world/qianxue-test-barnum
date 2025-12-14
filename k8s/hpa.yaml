@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: dktatlas-hpa
-  namespace: dktatlas-ns
+  name: mind-eden-hpa
+  namespace: mind-eden-ns
   labels:
-    app: dktatlas
+    app: mind-eden
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: dktatlas
+    name: mind-eden
   minReplicas: 2
   maxReplicas: 10
   metrics:

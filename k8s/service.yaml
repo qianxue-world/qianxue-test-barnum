@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: dktatlas-service
-  namespace: dktatlas-ns
+  name: mind-eden-service
+  namespace: mind-eden-ns
   labels:
-    app: dktatlas
+    app: mind-eden
 spec:
   type: ClusterIP
   ports:
@@ -13,4 +13,4 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: dktatlas
+    app: mind-eden

@@ -72,7 +72,7 @@ export const zh: Translations = {
     },
     helpSection: {
       title: '📋 文件说明',
-      lhrhDKT: 'lh/rh.aparc.DKTatlas.stats - DKT 分区皮层统计',
+      lhrhDKT: 'lh/rh.aparc.mind-eden.stats - DKT 分区皮层统计',
       lhrhAparc: 'lh/rh.aparc.stats - Desikan 分区皮层统计',
       aseg: 'aseg.stats - 皮下结构和总体积统计',
       locationHint: '💡 这些文件位于 FreeSurfer 输出目录的 stats/ 文件夹中',

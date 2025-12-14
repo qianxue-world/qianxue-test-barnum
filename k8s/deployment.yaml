@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dktatlas
-  namespace: dktatlas-ns
+  name: mind-eden
+  namespace: mind-eden-ns
   labels:
-    app: dktatlas
+    app: mind-eden
     version: v1
 spec:
   replicas: 1
@@ -15,15 +15,15 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: dktatlas
+      app: mind-eden
   template:
     metadata:
       labels:
-        app: dktatlas
+        app: mind-eden
         version: v1
     spec:
       containers:
-      - name: dktatlas
+      - name: mind-eden
         image: omaticaya/qianxue-test-mindpotential:1.0.9
         imagePullPolicy: Always
         ports:
@@ -58,6 +58,6 @@ spec:
         - name: VITE_API_BASE_URL
           valueFrom:
             configMapKeyRef:
-              name: dktatlas-config
+              name: mind-eden-config
               key: API_BASE_URL
       restartPolicy: Always
