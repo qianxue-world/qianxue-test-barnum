@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
       - name: dktatlas
-        image: omaticaya/dktatlas:1.0.8
+        image: omaticaya/qianxue-test-mindpotential:1.0.9
         imagePullPolicy: Always
         ports:
         - containerPort: 80

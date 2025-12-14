@@ -17,7 +17,7 @@ resources:
 - hpa.yaml
 
 images:
-- name: omaticaya/dktatlas
+- name: omaticaya/qianxue-test-mindpotential
   newTag: 1.0.9
 
 commonLabels:
