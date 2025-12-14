@@ -1,141 +1,108 @@
 import { useState } from 'react'
 import './App.css'
+import WordMatrix from './components/WordMatrix'
+import BookOfAnswers from './components/BookOfAnswers'
 
-// 导入所有答案图片
-import book1 from './data/book/book_1.jpg'
-import book2 from './data/book/book_2.jpg'
-import book3 from './data/book/book_3.jpg'
-import book4 from './data/book/book_4.jpg'
-import book5 from './data/book/book_5.jpg'
-import book6 from './data/book/book_6.jpg'
+interface Feature {
+  id: string
+  title: string
+  icon: string
+  desc: string
+  emoji: string
+}
 
-// 每页的数字范围
-const pageRanges = [
-  { image: book1, min: 1, max: 68 },
-  { image: book2, min: 69, max: 136 },
-  { image: book3, min: 137, max: 204 },
-  { image: book4, min: 205, max: 272 },
-  { image: book5, min: 273, max: 340 },
-  { image: book6, min: 341, max: 389 },
+const FEATURES: Feature[] = [
+  {
+    id: 'word-matrix',
+    title: '运势字母矩阵',
+    icon: '🔮',
+    desc: '第一眼看到的4个词代表今年运势',
+    emoji: '✨'
+  },
+  {
+    id: 'book-of-answers',
+    title: '答案之书',
+    icon: '📖',
+    desc: '让潜意识为你指引方向',
+    emoji: '🌙'
+  },
+  {
+    id: 'coming-soon-1',
+    title: '心理测试',
+    icon: '💭',
+    desc: '即将上线...',
+    emoji: '🦋'
+  },
+  {
+    id: 'coming-soon-2',
+    title: '每日运势',
+    icon: '⭐',
+    desc: '即将上线...',
+    emoji: '🌸'
+  }
 ]
 
-type Step = 'question' | 'number' | 'answer'
-
 function App() {
-  const [step, setStep] = useState<Step>('question')
-  const [question, setQuestion] = useState('')
-  const [number, setNumber] = useState('')
-  const [error, setError] = useState('')
+  const [activeFeature, setActiveFeature] = useState<string | null>(null)
 
-  const handleQuestionSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (question.trim()) {
-      setStep('number')
-      setError('')
-    }
+  if (activeFeature === 'word-matrix') {
+    return <WordMatrix onBack={() => setActiveFeature(null)} />
   }
 
-  const handleNumberSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const num = parseInt(number)
-    if (isNaN(num) || num < 1 || num > 389) {
-      setError('请输入1-389之间的数字')
-      return
-    }
-    setError('')
-    setStep('answer')
-  }
-
-  const getAnswerImage = () => {
-    const num = parseInt(number)
-    const page = pageRanges.find(p => num >= p.min && num <= p.max)
-    return page?.image || book1
-  }
-
-  const reset = () => {
-    setStep('question')
-    setQuestion('')
-    setNumber('')
-    setError('')
+  if (activeFeature === 'book-of-answers') {
+    return <BookOfAnswers onBack={() => setActiveFeature(null)} />
   }
 
   return (
-    <div className="app">
-      <div className="fate-book">
-        <h1 className="title">📖 命运之书</h1>
-        <p className="subtitle">问出你的问题，命运将给你答案</p>
-
-        {step === 'question' && (
-          <form onSubmit={handleQuestionSubmit} className="form">
-            <label className="label">在心中想好你的问题，然后写下来：</label>
-            <textarea
-              className="input textarea"
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-              placeholder="例如：我应该换工作吗？"
-              rows={3}
-            />
-            <button type="submit" className="btn" disabled={!question.trim()}>
-              下一步
+    <div className="app-layout">
+      <aside className="sidebar">
+        <div className="sidebar-header">
+          <span className="logo">🌸</span>
+          <h1>心灵小站</h1>
+        </div>
+        <nav className="sidebar-nav">
+          {FEATURES.map((feature) => (
+            <button
+              key={feature.id}
+              className={`nav-item ${feature.id.startsWith('coming') ? 'disabled' : ''}`}
+              onClick={() => !feature.id.startsWith('coming') && setActiveFeature(feature.id)}
+            >
+              <span className="nav-icon">{feature.icon}</span>
+              <span className="nav-text">{feature.title}</span>
             </button>
-          </form>
-        )}
+          ))}
+        </nav>
+        <div className="sidebar-footer">
+          <p>💕 探索内心的声音</p>
+        </div>
+      </aside>
 
-        {step === 'number' && (
-          <form onSubmit={handleNumberSubmit} className="form">
-            <div className="question-display">
-              <span className="question-label">你的问题：</span>
-              <span className="question-text">{question}</span>
-            </div>
-            <label className="label">
-              闭上眼睛，想一个1到389之间的数字：
-            </label>
-            <input
-              type="number"
-              className="input"
-              value={number}
-              onChange={(e) => setNumber(e.target.value)}
-              placeholder="输入数字 (1-389)"
-              min={1}
-              max={389}
-            />
-            {error && <p className="error">{error}</p>}
-            <div className="btn-group">
-              <button type="button" className="btn btn-secondary" onClick={() => setStep('question')}>
-                返回
-              </button>
-              <button type="submit" className="btn">
-                揭示答案
-              </button>
-            </div>
-          </form>
-        )}
+      <main className="main-content">
+        <div className="welcome-section">
+          <h2 className="welcome-title">
+            <span>✨</span> 欢迎来到心灵小站 <span>✨</span>
+          </h2>
+          <p className="welcome-desc">选择一个功能，开始你的心灵探索之旅吧~</p>
+        </div>
 
-        {step === 'answer' && (
-          <div className="answer-section">
-            <div className="question-display">
-              <span className="question-label">你的问题：</span>
-              <span className="question-text">{question}</span>
+        <div className="features-grid">
+          {FEATURES.map((feature) => (
+            <div
+              key={feature.id}
+              className={`feature-card ${feature.id.startsWith('coming') ? 'disabled' : ''}`}
+              onClick={() => !feature.id.startsWith('coming') && setActiveFeature(feature.id)}
+            >
+              <div className="card-decoration">{feature.emoji}</div>
+              <div className="card-icon">{feature.icon}</div>
+              <h3 className="card-title">{feature.title}</h3>
+              <p className="card-desc">{feature.desc}</p>
+              {!feature.id.startsWith('coming') && (
+                <span className="card-arrow">→</span>
+              )}
             </div>
-            <div className="number-display">
-              <span className="number-label">你选择的数字：</span>
-              <span className="number-value">{number}</span>
-            </div>
-            <div className="answer-card">
-              <h3>命运的答案</h3>
-              <p className="answer-hint">在图片中找到数字 <strong>{number}</strong> 对应的答案</p>
-              <img 
-                src={getAnswerImage()} 
-                alt={`答案 ${number}`} 
-                className="answer-image"
-              />
-            </div>
-            <button className="btn" onClick={reset}>
-              再问一个问题
-            </button>
-          </div>
-        )}
-      </div>
+          ))}
+        </div>
+      </main>
     </div>
   )
 }
