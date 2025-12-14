@@ -15,10 +15,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - test-fired.qianxue.online
+    - dktatlas.qianxue.online
     secretName: dktatlas-tls-secret
   rules:
-  - host: test-fired.qianxue.online
+  - host: dktatlas.qianxue.online
     http:
       paths:
       - path: /
