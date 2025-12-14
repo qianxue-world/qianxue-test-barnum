@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mbti-test:
+    # Option 1: Build locally (for development)
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    
+    # Option 2: Use pre-built image from DockerHub (for production)
+    # Replace 'your-dockerhub-username' with your actual DockerHub username
+    image: your-dockerhub-username/mbti-personality-test:latest
+    
+    container_name: mbti-personality-test
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - VITE_API_BASE_URL=https://api.qianxue.online
+    networks:
+      - mbti-network
+
+networks:
+  mbti-network:
+    driver: bridge

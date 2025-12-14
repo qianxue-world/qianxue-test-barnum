@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dktatlas-ns
+  labels:
+    name: dktatlas-ns
+    managed-by: argocd

@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: dktatlas-ns
+
+metadata:
+  name: dktatlas
+  namespace: dktatlas-ns
+
+resources:
+- namespace.yaml
+- deployment.yaml
+- service.yaml
+- ingress.yaml
+- configmap.yaml
+- env-configmap.yaml
+- hpa.yaml
+
+images:
+- name: omaticaya/dktatlas
+  newTag: 1.0.8
+
+commonLabels:
+  app: dktatlas
+  managed-by: argocd
+
+

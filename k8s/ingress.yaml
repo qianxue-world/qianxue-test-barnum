@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dktatlas-ingress
+  namespace: dktatlas-ns
+  labels:
+    app: dktatlas
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/gzip-types: "text/plain,text/css,application/json,application/javascript,text/xml,application/xml,application/xml+rss,text/javascript"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - test-fired.qianxue.online
+    secretName: dktatlas-tls-secret
+  rules:
+  - host: test-fired.qianxue.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dktatlas-service
+            port:
+              number: 80
