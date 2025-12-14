@@ -15,10 +15,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - test-barnum.qianxue.online
+    - barnum.qianxue.online
     secretName: qianxue-test-barnum-tls-secret
   rules:
-  - host: test-barnum.qianxue.online
+  - host: barnum.qianxue.online
     http:
       paths:
       - path: /
