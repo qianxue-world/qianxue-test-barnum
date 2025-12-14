@@ -1,63 +1,109 @@
 import { useState, useEffect } from 'react'
-import CombinedReport from './components/CombinedReport'
-import LanguageSwitcher from './components/LanguageSwitcher'
-import { I18nContext, translations, Language } from './i18n'
+import { useAppStore } from './store'
+import { Scale, TestResult } from './types'
+import Header from './components/Header'
+import ScaleList from './components/ScaleList'
+import TestPage from './components/TestPage'
+import ResultPage from './components/ResultPage'
+import HistoryPage from './components/HistoryPage'
+import LoginPage from './components/LoginPage'
 import './App.css'
 
+type Page = 'home' | 'test' | 'result' | 'history' | 'login'
+
 function App() {
-  const [dataVersion, setDataVersion] = useState(0)
-  const [isClearing, setIsClearing] = useState(false)
-  const [showClearButton, setShowClearButton] = useState(false)
-  const [language, setLanguage] = useState<Language>(() => {
-    const saved = localStorage.getItem('brainstats_language')
-    return (saved as Language) || 'zh'
-  })
+  const [currentPage, setCurrentPage] = useState<Page>('home')
+  const [selectedScale, setSelectedScale] = useState<Scale | null>(null)
+  const [currentResult, setCurrentResult] = useState<TestResult | null>(null)
+  const { loadFromStorage, addResult, results } = useAppStore()
 
   useEffect(() => {
-    localStorage.setItem('brainstats_language', language)
-  }, [language])
+    loadFromStorage()
+  }, [])
 
-  const handleClearData = () => {
-    setIsClearing(true)
-    // 等待淡出动画完成后清理数据
-    setTimeout(() => {
-      const keys = ['lhDKT', 'rhDKT', 'lhAparc', 'rhAparc', 'aseg', 'subjectName']
-      keys.forEach(key => localStorage.removeItem(`freesurfer_${key}`))
-      setDataVersion(v => v + 1)
-      setIsClearing(false)
-      setShowClearButton(false)
-    }, 800)
+  const handleSelectScale = (scale: Scale) => {
+    setSelectedScale(scale)
+    setCurrentPage('test')
   }
 
-  const i18nValue = {
-    language,
-    setLanguage,
-    t: translations[language],
+  const handleTestComplete = (result: TestResult) => {
+    addResult(result)
+    setCurrentResult(result)
+    setCurrentPage('result')
+  }
+
+  const handleNavigate = (page: 'home' | 'history' | 'login') => {
+    setCurrentPage(page)
+    setSelectedScale(null)
+    setCurrentResult(null)
+  }
+
+  const handleViewResult = (resultId: string) => {
+    const result = results.find(r => r.id === resultId)
+    if (result) {
+      setCurrentResult(result)
+      setCurrentPage('result')
+    }
+  }
+
+  const handleRetake = () => {
+    if (selectedScale) {
+      setCurrentPage('test')
+    } else if (currentResult) {
+      const scale = useAppStore.getState().results.find(r => r.id === currentResult.id)
+      if (scale) {
+        // 从结果页重新测试需要找到对应的量表
+        import('./data/scales').then(({ getScaleById }) => {
+          const s = getScaleById(currentResult.scaleId)
+          if (s) {
+            setSelectedScale(s)
+            setCurrentPage('test')
+          }
+        })
+      }
+    }
   }
 
   return (
-    <I18nContext.Provider value={i18nValue}>
-      <div className="app-container">
-        <div className="top-bar">
-          <button 
-            className={`clear-btn ${showClearButton ? 'show' : 'hide'}`} 
-            onClick={handleClearData} 
-            title={i18nValue.t.common.clear}
-            disabled={!showClearButton}
-          >
-            🗑️ {i18nValue.t.common.clear}
-          </button>
-          <LanguageSwitcher />
-        </div>
-        <main className="main-content">
-          <CombinedReport 
-            key={dataVersion} 
-            isClearing={isClearing} 
-            onShowClearButton={setShowClearButton}
+    <div className="app">
+      <Header 
+        onNavigate={handleNavigate} 
+        currentPage={currentPage}
+      />
+      
+      <main className="main-content">
+        {currentPage === 'home' && (
+          <ScaleList onSelectScale={handleSelectScale} />
+        )}
+        
+        {currentPage === 'test' && selectedScale && (
+          <TestPage 
+            scale={selectedScale}
+            onComplete={handleTestComplete}
+            onBack={() => handleNavigate('home')}
           />
-        </main>
-      </div>
-    </I18nContext.Provider>
+        )}
+        
+        {currentPage === 'result' && currentResult && (
+          <ResultPage 
+            result={currentResult}
+            onBack={() => handleNavigate('home')}
+            onRetake={handleRetake}
+          />
+        )}
+        
+        {currentPage === 'history' && (
+          <HistoryPage onViewResult={handleViewResult} />
+        )}
+        
+        {currentPage === 'login' && (
+          <LoginPage 
+            onBack={() => handleNavigate('home')}
+            onSuccess={() => handleNavigate('home')}
+          />
+        )}
+      </main>
+    </div>
   )
 }
 
