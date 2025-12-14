@@ -15,10 +15,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - test-fatebook.qianxue.online
+    - fatebook.qianxue.online
     secretName: qianxue-test-fatebook-tls-secret
   rules:
-  - host: test-fatebook.qianxue.online
+  - host: fatebook.qianxue.online
     http:
       paths:
       - path: /
