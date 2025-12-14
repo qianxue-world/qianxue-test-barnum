@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: qianxue-test-fatebook-hpa
-  namespace: qianxue-test-fatebook-ns
+  name: qianxue-test-barnum-hpa
+  namespace: qianxue-test-barnum-ns
   labels:
-    app: qianxue-test-fatebook
+    app: qianxue-test-barnum
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: qianxue-test-fatebook
+    name: qianxue-test-barnum
   minReplicas: 2
   maxReplicas: 10
   metrics:

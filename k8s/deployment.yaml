@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qianxue-test-fatebook
-  namespace: qianxue-test-fatebook-ns
+  name: qianxue-test-barnum
+  namespace: qianxue-test-barnum-ns
   labels:
-    app: qianxue-test-fatebook
+    app: qianxue-test-barnum
     version: v1
 spec:
   replicas: 1
@@ -15,16 +15,16 @@ spec:
       maxUnavailable: 0
   selector:
     matchLabels:
-      app: qianxue-test-fatebook
+      app: qianxue-test-barnum
   template:
     metadata:
       labels:
-        app: qianxue-test-fatebook
+        app: qianxue-test-barnum
         version: v1
     spec:
       containers:
-      - name: qianxue-test-fatebook
-        image: omaticaya/qianxue-test-fatebook:1.0.12
+      - name: qianxue-test-barnum
+        image: omaticaya/qianxue-test-barnum:1.0.1
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -58,6 +58,6 @@ spec:
         - name: VITE_API_BASE_URL
           valueFrom:
             configMapKeyRef:
-              name: qianxue-test-fatebook-config
+              name: qianxue-test-barnum-config
               key: API_BASE_URL
       restartPolicy: Always

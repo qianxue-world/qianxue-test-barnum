@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: qianxue-test-fatebook-ns
+  name: qianxue-test-barnum-ns
   labels:
-    name: qianxue-test-fatebook-ns
+    name: qianxue-test-barnum-ns
     managed-by: argocd

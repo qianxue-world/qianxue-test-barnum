@@ -1,11 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: qianxue-test-fatebook-ns
+namespace: qianxue-test-barnum-ns
 
 metadata:
-  name: qianxue-test-fatebook
-  namespace: qianxue-test-fatebook-ns
+  name: qianxue-test-barnum
+  namespace: qianxue-test-barnum-ns
 
 resources:
 - namespace.yaml
@@ -17,11 +17,11 @@ resources:
 - hpa.yaml
 
 images:
-- name: omaticaya/qianxue-test-fatebook
-  newTag: 1.0.12
+- name: omaticaya/qianxue-test-barnum
+  newTag: 1.0.1
 
 commonLabels:
-  app: qianxue-test-fatebook
+  app: qianxue-test-barnum
   managed-by: argocd
 
 

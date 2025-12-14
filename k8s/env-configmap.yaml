@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: qianxue-test-fatebook-env-config
-  namespace: qianxue-test-fatebook-ns
+  name: qianxue-test-barnum-env-config
+  namespace: qianxue-test-barnum-ns
   labels:
-    app: qianxue-test-fatebook
+    app: qianxue-test-barnum

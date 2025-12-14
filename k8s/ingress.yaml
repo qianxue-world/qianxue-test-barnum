@@ -1,10 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: qianxue-test-fatebook-ingress
-  namespace: qianxue-test-fatebook-ns
+  name: qianxue-test-barnum-ingress
+  namespace: qianxue-test-barnum-ns
   labels:
-    app: qianxue-test-fatebook
+    app: qianxue-test-barnum
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -15,16 +15,16 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - fatebook.qianxue.online
-    secretName: qianxue-test-fatebook-tls-secret
+    - test-barnum.qianxue.online
+    secretName: qianxue-test-barnum-tls-secret
   rules:
-  - host: fatebook.qianxue.online
+  - host: test-barnum.qianxue.online
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: qianxue-test-fatebook-service
+            name: qianxue-test-barnum-service
             port:
               number: 80
